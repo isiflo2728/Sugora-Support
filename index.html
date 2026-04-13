@@ -1,0 +1,330 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Sugora — Support</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+    :root {
+      --bg: #0A0A0A;
+      --surface: #141414;
+      --surface-raised: #1C1C1E;
+      --green: #34C759;
+      --green-dim: rgba(52, 199, 89, 0.12);
+      --orange: #FF8E53;
+      --coral: #FF6B6B;
+      --text: #F5F5F7;
+      --text-secondary: #8E8E93;
+      --border: rgba(255,255,255,0.06);
+      --radius: 16px;
+    }
+
+    body {
+      font-family: 'DM Sans', -apple-system, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.6;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    a { color: var(--green); text-decoration: none; transition: opacity 0.2s; }
+    a:hover { opacity: 0.8; }
+
+    .grain {
+      position: fixed; inset: 0; z-index: 9999; pointer-events: none; opacity: 0.03;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+    }
+
+    .hero {
+      min-height: 50vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      padding: 80px 24px 60px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hero::before {
+      content: '';
+      position: absolute;
+      top: -120px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 600px;
+      height: 600px;
+      background: radial-gradient(circle, rgba(52,199,89,0.08) 0%, transparent 70%);
+      pointer-events: none;
+    }
+
+    .app-icon {
+      width: 96px;
+      height: 96px;
+      border-radius: 22px;
+      background: linear-gradient(135deg, var(--coral), var(--orange), #FFC85E);
+      margin-bottom: 28px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+    }
+
+    .app-icon svg { width: 52px; height: 52px; }
+
+    .hero h1 {
+      font-family: 'Space Mono', monospace;
+      font-size: clamp(2.2rem, 5vw, 3.4rem);
+      font-weight: 700;
+      letter-spacing: -1px;
+      margin-bottom: 8px;
+    }
+
+    .hero .badge {
+      display: inline-block;
+      padding: 6px 16px;
+      background: var(--green-dim);
+      color: var(--green);
+      border-radius: 100px;
+      font-size: 0.85rem;
+      font-weight: 500;
+      margin-bottom: 20px;
+    }
+
+    .hero p {
+      color: var(--text-secondary);
+      font-size: 1.1rem;
+      max-width: 480px;
+    }
+
+    .container {
+      max-width: 720px;
+      margin: 0 auto;
+      padding: 0 24px 100px;
+    }
+
+    section { margin-bottom: 56px; }
+
+    section h2 {
+      font-family: 'Space Mono', monospace;
+      font-size: 1.15rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 2px;
+      color: var(--green);
+      margin-bottom: 24px;
+      padding-bottom: 12px;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .faq-item {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 24px;
+      margin-bottom: 12px;
+      cursor: pointer;
+      transition: background 0.2s;
+    }
+
+    .faq-item:hover { background: var(--surface-raised); }
+
+    .faq-item summary {
+      font-weight: 600;
+      font-size: 1.05rem;
+      list-style: none;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .faq-item summary::after {
+      content: '+';
+      font-family: 'Space Mono', monospace;
+      font-size: 1.3rem;
+      color: var(--text-secondary);
+      transition: transform 0.2s;
+    }
+
+    .faq-item[open] summary::after {
+      transform: rotate(45deg);
+      color: var(--green);
+    }
+
+    .faq-item p {
+      margin-top: 16px;
+      color: var(--text-secondary);
+      font-size: 0.95rem;
+      line-height: 1.7;
+    }
+
+    .contact-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 32px;
+      text-align: center;
+    }
+
+    .contact-card p {
+      color: var(--text-secondary);
+      margin-bottom: 20px;
+    }
+
+    .btn {
+      display: inline-block;
+      padding: 14px 32px;
+      background: var(--green);
+      color: #000;
+      font-weight: 600;
+      font-size: 1rem;
+      border-radius: 100px;
+      transition: transform 0.15s, box-shadow 0.15s;
+    }
+
+    .btn:hover {
+      opacity: 1;
+      transform: translateY(-1px);
+      box-shadow: 0 8px 30px rgba(52,199,89,0.25);
+    }
+
+    .info-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+    }
+
+    .info-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 24px;
+    }
+
+    .info-card .label {
+      font-size: 0.8rem;
+      text-transform: uppercase;
+      letter-spacing: 1.5px;
+      color: var(--text-secondary);
+      margin-bottom: 8px;
+    }
+
+    .info-card .value {
+      font-weight: 600;
+      font-size: 1.05rem;
+    }
+
+    footer {
+      text-align: center;
+      padding: 40px 24px;
+      border-top: 1px solid var(--border);
+      color: var(--text-secondary);
+      font-size: 0.85rem;
+    }
+
+    footer a { color: var(--text-secondary); }
+    footer a:hover { color: var(--green); }
+
+    @media (max-width: 500px) {
+      .info-grid { grid-template-columns: 1fr; }
+      .hero { padding: 60px 20px 40px; }
+    }
+  </style>
+</head>
+<body>
+  <div class="grain"></div>
+
+  <header class="hero">
+    <div class="app-icon">
+      <svg viewBox="0 0 52 52" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M26 4C26 4 20 16 18 22C15 30 14 34 14 37C14 44 19.4 50 26 50C32.6 50 38 44 38 37C38 34 37 30 34 22C32 16 26 4 26 4Z" fill="white" fill-opacity="0.9"/>
+        <polyline points="6,38 16,38 20,32 26,44 31,30 35,40 38,38 46,38" fill="none" stroke="white" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" opacity="0.9"/>
+      </svg>
+    </div>
+    <span class="badge">Support Center</span>
+    <h1>Sugora</h1>
+    <p>Track your glucose, log your meals, and stay in your sweet spot. We're here to help.</p>
+  </header>
+
+  <main class="container">
+
+    <section>
+      <h2>FAQ</h2>
+
+      <details class="faq-item">
+        <summary>How does Sugora read my glucose data?</summary>
+        <p>Sugora integrates with Apple HealthKit to read glucose data from your connected continuous glucose monitor (CGM) or manual entries. Make sure you've granted Sugora permission to read glucose data in Settings → Privacy & Security → Health.</p>
+      </details>
+
+      <details class="faq-item">
+        <summary>What does "In Sweet Spot" mean?</summary>
+        <p>When your glucose reading is within your target range (default 70–140 mg/dL), Sugora shows the green "In Sweet Spot" badge. You can customize your target range in the app settings.</p>
+      </details>
+
+      <details class="faq-item">
+        <summary>How does meal impact tracking work?</summary>
+        <p>When you log a meal, Sugora records your current glucose and checks your peak glucose 2 hours later. The difference is displayed as the "Rise" value, helping you understand how specific foods affect your levels over time.</p>
+      </details>
+
+      <details class="faq-item">
+        <summary>Is my health data private?</summary>
+        <p>Yes. All your glucose and meal data is stored locally on your device using Apple's secure storage. Sugora does not collect, transmit, or sell any personal health information. Your data never leaves your iPhone.</p>
+      </details>
+
+      <details class="faq-item">
+        <summary>Which devices are supported?</summary>
+        <p>Sugora requires an iPhone running iOS 17.0 or later. It works with any CGM that writes glucose data to Apple Health, including Dexcom and Libre sensors.</p>
+      </details>
+
+      <details class="faq-item">
+        <summary>How do I delete my data?</summary>
+        <p>You can clear all logged meals and preferences by going to the app Settings and selecting "Delete All Data." Uninstalling the app will also remove all locally stored data from your device.</p>
+      </details>
+    </section>
+
+    <section>
+      <h2>App Info</h2>
+      <div class="info-grid">
+        <div class="info-card">
+          <div class="label">Platform</div>
+          <div class="value">iOS 17+</div>
+        </div>
+        <div class="info-card">
+          <div class="label">Price</div>
+          <div class="value">Free</div>
+        </div>
+        <div class="info-card">
+          <div class="label">Data Storage</div>
+          <div class="value">On-device only</div>
+        </div>
+        <div class="info-card">
+          <div class="label">Integrations</div>
+          <div class="value">Apple HealthKit</div>
+        </div>
+      </div>
+    </section>
+
+    <section>
+      <h2>Contact</h2>
+      <div class="contact-card">
+        <p>Have a question, found a bug, or want to suggest a feature? Reach out and I'll get back to you as soon as possible.</p>
+        <a href="mailto:support@sugora-app.com" class="btn">Email Support</a>
+      </div>
+    </section>
+
+  </main>
+
+  <footer>
+    <p>&copy; 2026 Sugora. All rights reserved.</p>
+    <p style="margin-top: 8px;">
+      <a href="privacy.html">Privacy Policy</a> &nbsp;·&nbsp;
+      <a href="terms.html">Terms of Use</a>
+    </p>
+  </footer>
+</body>
+</html>
